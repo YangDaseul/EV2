@@ -300,4 +300,15 @@ class MYPViewModel extends ViewModel {
             es.shutDownExcutor();
         }
     }
+
+
+    public String getCcspEmail(){
+        String ccspEmail = "";
+        try {
+            ccspEmail = getRES_MYP_0001().getValue().data.getCcspEmail();
+        }catch (Exception e){
+
+        }
+        return ccspEmail;
+    }
 }

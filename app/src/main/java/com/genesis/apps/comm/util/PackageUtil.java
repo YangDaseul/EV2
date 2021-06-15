@@ -37,6 +37,29 @@ public class PackageUtil {
         }
     }
 
+    private static final String EMAIL_GENESIS = "genesis@gmail.com";
+
+    public static void runGMail(Context context, String msg){
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        try {
+            emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            emailIntent.setType("text/plain");
+            emailIntent.setPackage("com.google.android.gm");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL_GENESIS});
+//            emailIntent.putExtra(Intent.EXTRA_SUBJECT, 이메일 제목);
+            emailIntent.putExtra(Intent.EXTRA_TEXT, msg);
+            context.startActivity(emailIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+//            emailIntent.setType("text/plain");
+//            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL_GENESIS});
+//
+//            context.startActivity(Intent.createChooser(emailIntent, "Send Email"));
+        }
+    }
+
 
     /**
      * app 버전 코드 조회

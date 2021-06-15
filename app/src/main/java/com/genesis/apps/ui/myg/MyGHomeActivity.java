@@ -27,6 +27,7 @@ import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -496,6 +497,30 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     break;
                 case R.id.l_terms_5://버전 정보
                     startActivitySingleTop(new Intent(this, MyGVersioniActivity.class), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    break;
+                case R.id.l_email://이메일 문의하기
+
+                    if(PackageUtil.isInstallApp(this, "com.google.android.gm")){
+                        //G-MAIL 앱이 설치되어 있을 경우
+                        String msg="";
+                        try{
+                            msg = String.format(Locale.getDefault(),
+                                    getString(R.string.word_home_35),
+                                    mainVehicle.getMdlNm(),
+                                    StringUtil.isValidString(mainVehicle.getCarRgstNo()),
+                                    DeviceUtil.getPhoneNumber(getApplication()),
+                                    DeviceUtil.getModel(),
+                                    mypViewModel.getCcspEmail(),
+                                    "V"+PackageUtil.changeVersionToAppFormat(PackageUtil.getApplicationVersionName(this, getPackageName()))
+                            );
+                            PackageUtil.runGMail(this, msg);
+                        }catch (Exception e){
+
+                        }
+                    }else{
+                        //G-MAIL 앱이 설치되어 있지 않을 경우
+                    }
+
                     break;
 //                case R.id.l_app_connected://커넥티트 아이콘
 //                case R.id.l_app_digitalkey://디지털 키 아이콘
