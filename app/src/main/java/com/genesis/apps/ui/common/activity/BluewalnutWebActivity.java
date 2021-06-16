@@ -4,11 +4,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -62,8 +60,8 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluewalnut_web);
 
-        getDataFromIntent();
         setViewModel();
+        getDataFromIntent();
         setObserver();
         initView();
     }
@@ -108,12 +106,13 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
                             data.add("ediDate", result.data.getEdiDate());
                             data.add("filler", result.data.getFiller());
                             data.add("hashVal", result.data.getHashVal());
-                            Log.d("LJEUN", "postData : " + data.getPostData());
+                            Log.d(TAG, "postData : " + data.getPostData());
                             fragment.postUrl(result.data.getFormUrl(), data.getPostData().getBytes());
                         } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
                             this.redirectUrl = decodeUrl(StringUtil.isValidString(result.data.getRedirectUrl()));
+                            Log.d(TAG, "redirectUrl : " + redirectUrl);
                         }
                     }
                     break;
@@ -150,12 +149,13 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
                             data.add("ediDate", result.data.getEdiDate());
                             data.add("filler", result.data.getFiller());
                             data.add("hashVal", result.data.getHashVal());
-                            Log.d("LJEUN", "postData : " + data.getPostData());
+                            Log.d(TAG, "postData : " + data.getPostData());
                             fragment.postUrl(result.data.getFormUrl(), data.getPostData().getBytes());
                         } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
                             this.redirectUrl = decodeUrl(StringUtil.isValidString(result.data.getRedirectUrl()));
+                            Log.d(TAG, "redirectUrl : " + redirectUrl);
                         }
                     }
                     break;
@@ -188,14 +188,25 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
 
     @Override
     public void onBackPressed() {
+
         try {
-            if (!fragment.onBackPressed() || TextUtils.isEmpty(fragment.getUrl()) || fragment.getUrl().equalsIgnoreCase("about:blank")) {
-                super.onBackPressed();
-                exit();
+            if (!TextUtils.isEmpty(fn)) {
+                if (fragment.openWindows.size() > 0) {
+                    fragment.openWindows.get(0).loadUrl("javascript:" + fn);
+                } else {
+                    fragment.loadUrl("javascript:" + fn);
+                }
+            } else {
+                if (fragment.canGoBack()) {
+                    fragment.goBack();
+                } else {
+                    exit();
+                }
             }
-        } catch (Exception e) {
-            super.onBackPressed();
+        }catch (Exception e){
+            exit();
         }
+
     }
 
     private void initView() {
@@ -234,13 +245,14 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
                 data.add("ediDate", pymtFormVO.getEdiDate());
                 data.add("filler", pymtFormVO.getFiller());
                 data.add("hashVal", pymtFormVO.getHashVal());
-                Log.d("LJEUN", "postData : " + data.getPostData());
+                Log.d(TAG, "postData : " + data.getPostData());
                 bundle.putByteArray(WebViewFragment.EXTRA_POST_DATA, data.getPostData().getBytes());
             } catch (Exception e) {
 
             } finally {
                 this.payTrxId = pymtFormVO.getMOid();
                 this.redirectUrl = decodeUrl(StringUtil.isValidString(pymtFormVO.getRedirectUrl()));
+                Log.d(TAG, "redirectUrl : " + redirectUrl);
             }
         }
 
@@ -263,7 +275,7 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         public void onPageFinished(String url) {
             Log.d(TAG, "onPageFinished:" + url);
             if (url.startsWith("about:blank")) exit();
-            if (url.equals(redirectUrl)) exit();
+            if (url.startsWith(redirectUrl)) exit();
             if (isClearHistory) {
                 clearHistory();
                 setClearHistory(false);
@@ -392,26 +404,6 @@ public class BluewalnutWebActivity extends SubActivity<ActivityBluewalnutWebBind
         return false;
     }
 
-    public boolean clearWindowOpens3() {
-
-        if(!fragment.openWindows.isEmpty()) {
-            try {
-                for (WebView webView : fragment.openWindows) {
-                    if(webView.canGoBack()){
-                        webView.goBack();
-                    }else {
-                        webView.clearHistory();
-                        fragment.getWebViewContainer().removeView(webView);
-                        fragment.onCloseWindow(webView);
-                        fragment.openWindows.clear();
-                    }
-                }
-                return true;
-            } catch (Exception ignore) {
-            }
-        }
-        return false;
-    }
 
     private String decodeUrl(String str) {
         if (TextUtils.isEmpty(str))
