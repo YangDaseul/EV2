@@ -311,4 +311,28 @@ class MYPViewModel extends ViewModel {
         }
         return ccspEmail;
     }
+
+    public List<VehicleVO> getVehicleList() throws ExecutionException, InterruptedException{
+        ExecutorService es = new ExecutorService("");
+        Future<List<VehicleVO>> future = es.getListeningExecutorService().submit(()->{
+            List<VehicleVO> list = new ArrayList<>();
+            try {
+                list = dbVehicleRepository.getVehicleList();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+            }finally {
+                if(list==null)
+                    list = new ArrayList<>();
+            }
+
+            return list;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            //todo 테스트 필요
+            es.shutDownExcutor();
+        }
+    }
 }

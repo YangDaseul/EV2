@@ -38,12 +38,15 @@ import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.databinding.ActivityMygHomeBinding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
 import com.genesis.apps.ui.main.store.StoreWebActivity;
 import com.genesis.apps.ui.myg.view.FamilyAppHorizontalAdapter;
 import com.genesis.apps.ui.myg.view.OilView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0001;
@@ -500,14 +503,24 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     break;
                 case R.id.l_email://이메일 문의하기
 
-                    if(PackageUtil.isInstallApp(this, "com.google.android.gm")){
+                    if(PackageUtil.isInstallApp(this, PackageUtil.PACKAGE_GMAIL)){
                         //G-MAIL 앱이 설치되어 있을 경우
                         String msg="";
+                        String vehicleInfo="";
                         try{
+                            List<VehicleVO> list = new ArrayList<>();
+                            list.addAll(mypViewModel.getVehicleList());
+                            if (list != null && list.size() > 0) {
+                                for (VehicleVO vehicleVO : list) {
+                                    vehicleInfo += (vehicleVO.getMdlNm() + (TextUtils.isEmpty(vehicleVO.getCarRgstNo()) ? ", " : (" "+vehicleVO.getCarRgstNo()+", ")));
+                                }
+                                if(vehicleInfo.endsWith(", ")){
+                                    vehicleInfo = vehicleInfo.substring(0, vehicleInfo.length()-2);
+                                }
+                            }
                             msg = String.format(Locale.getDefault(),
                                     getString(R.string.word_home_35),
-                                    mainVehicle.getMdlNm(),
-                                    StringUtil.isValidString(mainVehicle.getCarRgstNo()),
+                                    vehicleInfo,
                                     DeviceUtil.getPhoneNumber(getApplication()),
                                     DeviceUtil.getModel(),
                                     mypViewModel.getCcspEmail(),
@@ -519,16 +532,12 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                         }
                     }else{
                         //G-MAIL 앱이 설치되어 있지 않을 경우
+                        MiddleDialog.dialogInstallGmail(this, () -> PackageUtil.goMarket(this, PackageUtil.PACKAGE_GMAIL), () -> {
+
+                        });
                     }
 
                     break;
-//                case R.id.l_app_connected://커넥티트 아이콘
-//                case R.id.l_app_digitalkey://디지털 키 아이콘
-//                case R.id.l_app_carpay://카페이 아이콘
-//                case R.id.l_app_cam://빌트인캠 아이콘
-//                    PackageUtil.runApp(this, v.getTag().toString());
-//                    break;
-
                 case R.id.iv_app:
                     PackageUtil.runApp(this, v.getTag(R.id.url).toString());
                     break;
