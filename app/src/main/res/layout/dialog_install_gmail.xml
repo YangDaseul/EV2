@@ -22,8 +22,7 @@
             android:lineSpacingExtra="10dp"
             android:textColor="@color/x_000000"
             android:textSize="20dp"
-            android:visibility="gone"
-            android:text="@string/mg_con02_p02_1"/>
+            android:text="@string/dialog_gmail_0"/>
 
 
         <ScrollView
@@ -49,41 +48,34 @@
                     android:textSize="16dp"
                     android:fontFamily="@font/regular_genesissanstextglobal"
                     android:gravity="center"
-                    android:lineSpacingExtra="6dp"
+                    android:lineSpacingExtra="4dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
 
                 <ImageView
-                    android:id="@+id/iv_line_1"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/x_e5e5e5"
+                    android:id="@+id/iv_gmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/icon_gmail"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_info"/>
-
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
                 <TextView
-                    android:id="@+id/tv_mark_4"
-                    style="@style/ViewMarkBlack"
-                    android:textSize="16dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_info_4" />
-
-                <TextView
-                    android:id="@+id/tv_info_4"
+                    android:id="@+id/tv_gmail"
                     style="@style/ViewMsgInputSub"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
                     android:text="@string/dialog_gmail_4"
-                    android:textColor="@color/x_757575"
-                    android:textSize="16dp"
+                    android:textColor="@color/x_000000"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tv_mark_4"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_line_1" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_gmail" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

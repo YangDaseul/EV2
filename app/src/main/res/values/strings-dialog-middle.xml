@@ -153,10 +153,10 @@
     <string name="sm_romte02_p01_1">원격진단 예약 취소</string>
     <string name="sm_romte02_p01_2">원격진단 예약을 취소하시겠습니까?</string>
 
-
+    <string name="dialog_gmail_0">이메일 문의하기</string>
     <string name="dialog_gmail_1">이메일 문의하기를 작성하기 위해\nGoogle gmail 앱 설치가 필요합니다.\n\n이 어플리케이션을 설치하시겠습니까?</string>
     <string name="dialog_gmail_2">설치가 취소되었습니다.</string>
     <string name="dialog_gmail_3">수락</string>
-    <string name="dialog_gmail_4">Google gmail</string>
+    <string name="dialog_gmail_4">Google mail</string>
 
 </resources>
