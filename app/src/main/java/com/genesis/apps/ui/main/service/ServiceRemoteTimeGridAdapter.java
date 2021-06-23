@@ -26,6 +26,12 @@ public class ServiceRemoteTimeGridAdapter extends RecyclerView.Adapter<ServiceRe
      * 현재 시간을 0시 부터 몇분 지났는지 값.
      */
     private int nowTimeMin;
+
+    /**
+     * 고객 기준 예약 가능 시간 (현재시간에 + X분을 한 시간부터 예약 가능)
+     */
+    private final int TIME_LIMIT_MINUTE = 20;
+
     /**
      * 시간대 데이터 목록
      */
@@ -58,7 +64,7 @@ public class ServiceRemoteTimeGridAdapter extends RecyclerView.Adapter<ServiceRe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TimeVO item = datas.get(position);
-        boolean isAble = getTimeMin(item.hour, item.minute) > nowTimeMin;
+        boolean isAble = getTimeMin(item.hour, item.minute) > nowTimeMin + TIME_LIMIT_MINUTE;
         holder.tvTime.setEnabled(isAble);
         holder.tvTime.setText(item.toString());
         if (isAble) {
