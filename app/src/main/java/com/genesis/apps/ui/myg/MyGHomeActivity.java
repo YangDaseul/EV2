@@ -578,14 +578,14 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                                 }
                             }
                             msg = String.format(Locale.getDefault(),
-                                    getString(R.string.word_home_35),
+                                    getString(R.string.word_home_37),
                                     vehicleInfo,
 //                                    DeviceUtil.getPhoneNumber(getApplication()),
                                     DeviceUtil.getModel(),
                                     mypViewModel.getCcspEmail(),
                                     "V"+PackageUtil.changeVersionToAppFormat(PackageUtil.getApplicationVersionName(this, getPackageName()))
                             );
-                            PackageUtil.runGMail(this, msg, getString(R.string.word_home_36));
+                            PackageUtil.runGMail(this, msg, getString(R.string.word_home_38));
                         }catch (Exception e){
 
                         }

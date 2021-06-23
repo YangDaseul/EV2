@@ -1392,7 +1392,7 @@
                         android:letterSpacing="-0.01"
                         android:textColor="@color/x_000000"
                         android:textSize="16dp"
-                        android:text="@string/word_home_34"
+                        android:text="@string/word_home_36"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"/>

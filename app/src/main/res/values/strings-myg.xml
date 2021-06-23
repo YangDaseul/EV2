@@ -229,6 +229,24 @@
     <string name="mg_con02_01_20">개인정보의 보유 및 이용기간</string>
     <string name="mg_con02_01_21">회원 탈퇴 시까지 혹은 동의 철회 시까지</string>
 
+    <string name="mg_cp_01_1">충전 크레딧 사용 내역</string>
+    <string name="mg_cp_01_2">총 충전 크레딧</string>
+    <string name="mg_cp_01_3">포인트 내역이 없습니다.</string>
+    <string name="mg_cp_01_4">조회할 차량을 선택해 주세요.</string>
+
     <string name="mg_bf01_02_1">혜택/쿠폰</string>
-    <string name="mg_bf01_02_2">사용 가능한 쿠폰이 없습니다.</string>
+    <string name="mg_bf01_02_2">보유 중인 쿠폰이 없습니다.\n차량 등록 후 다시 확인해 주세요.</string>
+    <string name="mg_bf01_02_3">보유 중 쿠폰</string>
+    <string name="mg_bf01_02_4">사용 가능</string>
+    <string name="mg_bf01_02_5">사용 완료</string>
+    <string name="mg_bf01_02_6">기간 만료</string>
+    <string name="mg_bf01_02_7">쿠폰번호</string>
+    <string name="mg_bf01_02_8">사용기간</string>
+    <string name="mg_bf01_02_9">유의사항</string>
+    <string name="mg_bf01_02_10">기간 만료된 쿠폰은 사용할 수 없습니다.</string>
+    <string name="mg_bf01_02_11">서비스 협력사 방문 시 쿠폰을 제시 바랍니다.</string>
+    <string name="mg_bf01_02_12">일부 상품에는 쿠폰 적용이 불가할 수 있습니다.</string>
+    <string name="mg_bf01_02_13">해당 이벤트는 당사 사정에 의해 조기 마감될 수 있습니다.</string>
+    <string name="mg_bf01_02_14">자세한 사항은 고객센터(080-700-6000)로 문의하여 주시기 바랍니다.</string>
+    <string name="mg_bf01_02_15">%s ~ %s</string>
 </resources>
