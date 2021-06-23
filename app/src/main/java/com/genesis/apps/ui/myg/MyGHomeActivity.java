@@ -18,6 +18,7 @@ import com.genesis.apps.comm.model.api.gra.MYP_0001;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.api.gra.MYP_1005;
 import com.genesis.apps.comm.model.api.gra.MYP_1006;
+import com.genesis.apps.comm.model.api.gra.MYP_1011;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -242,7 +243,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         });
 
         mypViewModel.getRES_MYP_1006().observe(this, result -> {
-
             switch (result.status){
                 case LOADING:
                     oilView.showErrorLayout(View.GONE);
@@ -256,6 +256,22 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 default:
                     oilView.showErrorLayout(View.VISIBLE);
                     oilView.showPorgessBar(false);
+                    break;
+            }
+        });
+
+
+        mypViewModel.getRES_MYP_1011().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if(result.data!=null&&VariableType.COMMON_MEANS_YES.equalsIgnoreCase(result.data.getNewCpnYn())){
+                        ui.ivBadge1.setVisibility(View.VISIBLE);
+                        break;
+                    }
+                default:
+                    ui.ivBadge1.setVisibility(View.GONE);
                     break;
             }
         });
@@ -321,6 +337,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     private void reqData() {
         mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
         mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
+        mypViewModel.reqMYP1011(new MYP_1011.Request(APPIAInfo.MG01.getId()));
     }
 
 
