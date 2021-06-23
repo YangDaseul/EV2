@@ -21,6 +21,9 @@ import lombok.EqualsAndHashCode;
  * 사용가능 종료일자, 예: 20210615
  * @see #cpnStus 쿠폰상태
  * 사용상태 : A:사용가능, F:사용완료, E:기간만료
+ * @see #cpnTypCd 정비 쿠폰 구분 코드
+ * @see #cpnSrlNo 정비 쿠폰 일련 번호
+ *
  */
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
@@ -41,4 +44,12 @@ class HSWCouponVO extends BaseData {
     @Expose
     @SerializedName("cpnStus")
     private String cpnStus;
+
+    //MYP-1011에서만 확인 가능
+    @Expose
+    @SerializedName("cpnTypCd")
+    private String cpnTypCd;
+    @Expose
+    @SerializedName("cpnSrlNo")
+    private String cpnSrlNo;
 }
