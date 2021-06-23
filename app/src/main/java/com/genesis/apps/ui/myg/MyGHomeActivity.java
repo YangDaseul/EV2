@@ -501,7 +501,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case R.id.l_terms_5://버전 정보
                     startActivitySingleTop(new Intent(this, MyGVersioniActivity.class), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
-                case R.id.l_email://이메일 문의하기
+                case R.id.l_email://APP 문의 및 개선 요청
 
                     if(PackageUtil.isInstallApp(this, PackageUtil.PACKAGE_GMAIL)){
                         //G-MAIL 앱이 설치되어 있을 경우
@@ -521,12 +521,12 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                             msg = String.format(Locale.getDefault(),
                                     getString(R.string.word_home_35),
                                     vehicleInfo,
-                                    DeviceUtil.getPhoneNumber(getApplication()),
+//                                    DeviceUtil.getPhoneNumber(getApplication()),
                                     DeviceUtil.getModel(),
                                     mypViewModel.getCcspEmail(),
                                     "V"+PackageUtil.changeVersionToAppFormat(PackageUtil.getApplicationVersionName(this, getPackageName()))
                             );
-                            PackageUtil.runGMail(this, msg);
+                            PackageUtil.runGMail(this, msg, getString(R.string.word_home_36));
                         }catch (Exception e){
 
                         }
