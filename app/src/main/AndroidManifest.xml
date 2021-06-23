@@ -8,6 +8,7 @@
         <package android:name="com.genesis.icp" />
         <package android:name="com.genesis.builtincam.kr" />
         <package android:name="com.genesis.digitalcarkey" />
+        <package android:name="com.google.android.gm" />
     </queries>
 
     <uses-permission android:name="android.permission.INTERNET" />

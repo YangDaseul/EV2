@@ -8,6 +8,8 @@ import com.genesis.apps.comm.model.api.gra.MYP_0005;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.api.gra.MYP_1005;
 import com.genesis.apps.comm.model.api.gra.MYP_1006;
+import com.genesis.apps.comm.model.api.gra.MYP_1011;
+import com.genesis.apps.comm.model.api.gra.MYP_1013;
 import com.genesis.apps.comm.model.api.gra.MYP_2001;
 import com.genesis.apps.comm.model.api.gra.MYP_2002;
 import com.genesis.apps.comm.model.api.gra.MYP_2003;
@@ -38,6 +40,8 @@ public class MYPRepo {
     public final MutableLiveData<NetUIResponse<MYP_1003.Response>> RES_MYP_1003 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<MYP_1005.Response>> RES_MYP_1005 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<MYP_1006.Response>> RES_MYP_1006 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<MYP_1011.Response>> RES_MYP_1011 = new MutableLiveData<>();
+    public final MutableLiveData<NetUIResponse<MYP_1013.Response>> RES_MYP_1013 = new MutableLiveData<>();
 
     public final MutableLiveData<NetUIResponse<MYP_2001.Response>> RES_MYP_2001 = new MutableLiveData<>();
     public final MutableLiveData<NetUIResponse<MYP_2002.Response>> RES_MYP_2002 = new MutableLiveData<>();
@@ -188,6 +192,50 @@ public class MYPRepo {
         }, APIInfo.GRA_MYP_1006, reqData);
 
         return RES_MYP_1006;
+    }
+
+    public MutableLiveData<NetUIResponse<MYP_1011.Response>> REQ_MYP_1011(final MYP_1011.Request reqData) {
+        RES_MYP_1011.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_MYP_1011.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_1011.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_MYP_1011.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_MYP_1011.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_MYP_1011, reqData);
+
+        return RES_MYP_1011;
+    }
+
+    public MutableLiveData<NetUIResponse<MYP_1013.Response>> REQ_MYP_1013(final MYP_1013.Request reqData) {
+        RES_MYP_1013.setValue(NetUIResponse.loading(null));
+        netCaller.reqDataToGRA(new NetResultCallback() {
+            @Override
+            public void onSuccess(String object) {
+                RES_MYP_1013.setValue(NetUIResponse.success(new Gson().fromJson(object, MYP_1013.Response.class)));
+            }
+
+            @Override
+            public void onFail(NetResult e) {
+                RES_MYP_1013.setValue(NetUIResponse.error(e.getMseeage(), null));
+            }
+
+            @Override
+            public void onError(NetResult e) {
+                RES_MYP_1013.setValue(NetUIResponse.error(R.string.error_msg_4, null));
+            }
+        }, APIInfo.GRA_MYP_1013, reqData);
+
+        return RES_MYP_1013;
     }
 
 

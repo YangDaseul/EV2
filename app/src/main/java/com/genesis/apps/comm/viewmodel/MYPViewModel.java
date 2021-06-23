@@ -6,6 +6,8 @@ import com.genesis.apps.comm.model.api.gra.MYP_0005;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.api.gra.MYP_1005;
 import com.genesis.apps.comm.model.api.gra.MYP_1006;
+import com.genesis.apps.comm.model.api.gra.MYP_1011;
+import com.genesis.apps.comm.model.api.gra.MYP_1013;
 import com.genesis.apps.comm.model.api.gra.MYP_2001;
 import com.genesis.apps.comm.model.api.gra.MYP_2002;
 import com.genesis.apps.comm.model.api.gra.MYP_2003;
@@ -63,6 +65,8 @@ class MYPViewModel extends ViewModel {
     private MutableLiveData<NetUIResponse<MYP_1003.Response>> RES_MYP_1003;
     private MutableLiveData<NetUIResponse<MYP_1005.Response>> RES_MYP_1005;
     private MutableLiveData<NetUIResponse<MYP_1006.Response>> RES_MYP_1006;
+    private MutableLiveData<NetUIResponse<MYP_1011.Response>> RES_MYP_1011;
+    private MutableLiveData<NetUIResponse<MYP_1013.Response>> RES_MYP_1013;
 
     private MutableLiveData<NetUIResponse<MYP_8001.Response>> RES_MYP_8001;
     private MutableLiveData<NetUIResponse<MYP_8004.Response>> RES_MYP_8004;
@@ -98,6 +102,8 @@ class MYPViewModel extends ViewModel {
         RES_MYP_1003 = repository.RES_MYP_1003;
         RES_MYP_1005 = repository.RES_MYP_1005;
         RES_MYP_1006 = repository.RES_MYP_1006;
+        RES_MYP_1011 = repository.RES_MYP_1011;
+        RES_MYP_1013 = repository.RES_MYP_1013;
         RES_MYP_8001 = repository.RES_MYP_8001;
         RES_MYP_8004 = repository.RES_MYP_8004;
         RES_MYP_8005 = repository.RES_MYP_8005;
@@ -135,6 +141,14 @@ class MYPViewModel extends ViewModel {
 
     public void reqMYP1006(final MYP_1006.Request reqData){
         repository.REQ_MYP_1006(reqData);
+    }
+
+    public void reqMYP1011(final MYP_1011.Request reqData){
+        repository.REQ_MYP_1011(reqData);
+    }
+
+    public void reqMYP1013(final MYP_1013.Request reqData){
+        repository.REQ_MYP_1013(reqData);
     }
 
 
@@ -297,6 +311,41 @@ class MYPViewModel extends ViewModel {
         try {
             return future.get();
         }finally {
+            es.shutDownExcutor();
+        }
+    }
+
+
+    public String getCcspEmail(){
+        String ccspEmail = "";
+        try {
+            ccspEmail = getRES_MYP_0001().getValue().data.getCcspEmail();
+        }catch (Exception e){
+
+        }
+        return ccspEmail;
+    }
+
+    public List<VehicleVO> getVehicleList() throws ExecutionException, InterruptedException{
+        ExecutorService es = new ExecutorService("");
+        Future<List<VehicleVO>> future = es.getListeningExecutorService().submit(()->{
+            List<VehicleVO> list = new ArrayList<>();
+            try {
+                list = dbVehicleRepository.getVehicleList();
+            } catch (Exception ignore) {
+                ignore.printStackTrace();
+            }finally {
+                if(list==null)
+                    list = new ArrayList<>();
+            }
+
+            return list;
+        });
+
+        try {
+            return future.get();
+        }finally {
+            //todo 테스트 필요
             es.shutDownExcutor();
         }
     }

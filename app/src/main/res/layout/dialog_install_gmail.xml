@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/x_ffffff"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingTop="30dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="29dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/light_genesissansheadglobal"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="10dp"
+            android:textColor="@color/x_000000"
+            android:textSize="20dp"
+            android:text="@string/dialog_gmail_0"/>
+
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="40dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/tv_info"
+                    style="@style/ViewMsgInputSub"
+                    android:text="@string/dialog_gmail_1"
+                    android:textColor="@color/x_000000"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/regular_genesissanstextglobal"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+
+                <ImageView
+                    android:id="@+id/iv_gmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/icon_gmail"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_info"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_gmail"
+                    style="@style/ViewMsgInputSub"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_gmail_4"
+                    android:textColor="@color/x_000000"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_gmail" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_bg_ffffff_stroke_111111"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="6dp"
+                android:text="@string/dialog_common_7"
+                android:textColor="@color/x_000000"
+                android:visibility="visible"
+                android:textSize="16dp"/>
+
+
+            <TextView
+                android:id="@+id/btn_ok"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_bg_111111"
+                android:fontFamily="@font/regular_genesissanstextglobal"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="6dp"
+                android:text="@string/dialog_gmail_3"
+                android:textColor="@color/x_ffffff"
+                android:textSize="16dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

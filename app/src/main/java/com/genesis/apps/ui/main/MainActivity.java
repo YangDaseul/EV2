@@ -22,7 +22,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.genesis.apps.R;
 import com.genesis.apps.comm.hybrid.MyWebViewFrament;
 import com.genesis.apps.comm.model.api.APPIAInfo;
+import com.genesis.apps.comm.model.api.etc.AbnormalCheck;
 import com.genesis.apps.comm.model.api.gra.BAR_1001;
+import com.genesis.apps.comm.model.api.gra.CMN_0001;
 import com.genesis.apps.comm.model.api.gra.NOT_0003;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -31,7 +33,9 @@ import com.genesis.apps.comm.model.constants.StoreInfo;
 import com.genesis.apps.comm.model.constants.VariableType;
 import com.genesis.apps.comm.model.vo.VehicleVO;
 import com.genesis.apps.comm.util.DeviceUtil;
+import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
+import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.CMNViewModel;
 import com.genesis.apps.comm.viewmodel.CMSViewModel;
 import com.genesis.apps.comm.viewmodel.LGNViewModel;
@@ -39,6 +43,7 @@ import com.genesis.apps.databinding.ActivityMainBinding;
 import com.genesis.apps.databinding.ItemTabBinding;
 import com.genesis.apps.databinding.ItemTabDayBinding;
 import com.genesis.apps.ui.common.activity.GpsBaseActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.main.contents.ContentsSearchActivity;
 import com.genesis.apps.ui.main.contents.FragmentContents;
 import com.genesis.apps.ui.main.home.FragmentHome1;
@@ -282,6 +287,21 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
 
     @Override
     public void setObserver() {
+        cmnViewModel.getRES_ABNORMAL_CHECK().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if(result.data!=null){
+                        if(result.data.isAbnormal()){
+                            MiddleDialog.dialogAbnormal(this, StringUtil.isValidString(result.data.getTitle()), StringUtil.isValidString(result.data.getMessage()), () -> exitApp());
+                            break;
+                        }
+                    }
+                default:
+                    break;
+            }
+        });
 
         cmnViewModel.getRES_NOT_0003().observe(this, result -> {
             switch (result.status) {
@@ -321,6 +341,7 @@ public class MainActivity extends GpsBaseActivity<ActivityMainBinding> {
     @Override
     public void onResume() {
         super.onResume();
+        cmnViewModel.reqAbnormalCheck(new AbnormalCheck.Request());
         Log.e("onResume", "onReusme Mainactivity");
         checkPushCode();
         checkDeepCode();

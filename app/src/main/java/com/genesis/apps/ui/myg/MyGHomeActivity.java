@@ -18,6 +18,7 @@ import com.genesis.apps.comm.model.api.gra.MYP_0001;
 import com.genesis.apps.comm.model.api.gra.MYP_1003;
 import com.genesis.apps.comm.model.api.gra.MYP_1005;
 import com.genesis.apps.comm.model.api.gra.MYP_1006;
+import com.genesis.apps.comm.model.api.gra.MYP_1011;
 import com.genesis.apps.comm.model.constants.KeyNames;
 import com.genesis.apps.comm.model.constants.OilCodes;
 import com.genesis.apps.comm.model.constants.RequestCodes;
@@ -27,6 +28,7 @@ import com.genesis.apps.comm.model.vo.ISTAmtVO;
 import com.genesis.apps.comm.model.vo.OilPointVO;
 import com.genesis.apps.comm.model.vo.PrivilegeVO;
 import com.genesis.apps.comm.model.vo.VehicleVO;
+import com.genesis.apps.comm.util.DeviceUtil;
 import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
@@ -37,6 +39,7 @@ import com.genesis.apps.comm.viewmodel.OILViewModel;
 import com.genesis.apps.databinding.ActivityMygHomeBinding;
 import com.genesis.apps.ui.common.activity.GAWebActivity;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 import com.genesis.apps.ui.common.view.listener.ViewPressEffectHelper;
 import com.genesis.apps.ui.main.insight.InsightExpnMainActivity;
 import com.genesis.apps.ui.main.service.CardManageActivity;
@@ -44,6 +47,8 @@ import com.genesis.apps.ui.main.store.StoreWebActivity;
 import com.genesis.apps.ui.myg.view.FamilyAppHorizontalAdapter;
 import com.genesis.apps.ui.myg.view.OilView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import static com.genesis.apps.comm.model.constants.VariableType.TERM_SERVICE_JOIN_GRA0001;
@@ -274,7 +279,6 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
         });
 
         mypViewModel.getRES_MYP_1006().observe(this, result -> {
-
             switch (result.status){
                 case LOADING:
                     oilView.showErrorLayout(View.GONE);
@@ -288,6 +292,22 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 default:
                     oilView.showErrorLayout(View.VISIBLE);
                     oilView.showPorgessBar(false);
+                    break;
+            }
+        });
+
+
+        mypViewModel.getRES_MYP_1011().observe(this, result -> {
+            switch (result.status){
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if(result.data!=null&&VariableType.COMMON_MEANS_YES.equalsIgnoreCase(result.data.getNewCpnYn())){
+                        ui.ivBadge1.setVisibility(View.VISIBLE);
+                        break;
+                    }
+                default:
+                    ui.ivBadge1.setVisibility(View.GONE);
                     break;
             }
         });
@@ -353,6 +373,7 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
     private void reqData() {
         mypViewModel.reqMYP0001(new MYP_0001.Request(APPIAInfo.MG01.getId()));
         mypViewModel.reqMYP1003(new MYP_1003.Request(APPIAInfo.MG01.getId()));
+        mypViewModel.reqMYP1011(new MYP_1011.Request(APPIAInfo.MG01.getId()));
     }
 
 
@@ -539,13 +560,43 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                 case R.id.l_terms_5://버전 정보
                     startActivitySingleTop(new Intent(this, MyGVersioniActivity.class), 0,VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                     break;
-//                case R.id.l_app_connected://커넥티트 아이콘
-//                case R.id.l_app_digitalkey://디지털 키 아이콘
-//                case R.id.l_app_carpay://카페이 아이콘
-//                case R.id.l_app_cam://빌트인캠 아이콘
-//                    PackageUtil.runApp(this, v.getTag().toString());
-//                    break;
+                case R.id.l_email://APP 문의 및 개선 요청
 
+                    if(PackageUtil.isInstallApp(this, PackageUtil.PACKAGE_GMAIL)){
+                        //G-MAIL 앱이 설치되어 있을 경우
+                        String msg="";
+                        String vehicleInfo="";
+                        try{
+                            List<VehicleVO> list = new ArrayList<>();
+                            list.addAll(mypViewModel.getVehicleList());
+                            if (list != null && list.size() > 0) {
+                                for (VehicleVO vehicleVO : list) {
+                                    vehicleInfo += (vehicleVO.getMdlNm() + (TextUtils.isEmpty(vehicleVO.getCarRgstNo()) ? ", " : (" "+vehicleVO.getCarRgstNo()+", ")));
+                                }
+                                if(vehicleInfo.endsWith(", ")){
+                                    vehicleInfo = vehicleInfo.substring(0, vehicleInfo.length()-2);
+                                }
+                            }
+                            msg = String.format(Locale.getDefault(),
+                                    getString(R.string.word_home_35),
+                                    vehicleInfo,
+//                                    DeviceUtil.getPhoneNumber(getApplication()),
+                                    DeviceUtil.getModel(),
+                                    mypViewModel.getCcspEmail(),
+                                    "V"+PackageUtil.changeVersionToAppFormat(PackageUtil.getApplicationVersionName(this, getPackageName()))
+                            );
+                            PackageUtil.runGMail(this, msg, getString(R.string.word_home_36));
+                        }catch (Exception e){
+
+                        }
+                    }else{
+                        //G-MAIL 앱이 설치되어 있지 않을 경우
+                        MiddleDialog.dialogInstallGmail(this, () -> PackageUtil.goMarket(this, PackageUtil.PACKAGE_GMAIL), () -> {
+
+                        });
+                    }
+
+                    break;
                 case R.id.iv_app:
                     PackageUtil.runApp(this, v.getTag(R.id.url).toString());
                     break;

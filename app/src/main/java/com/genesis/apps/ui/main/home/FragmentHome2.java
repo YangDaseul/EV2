@@ -157,7 +157,7 @@ public class FragmentHome2 extends SubFragment<FragmentHome2Binding> {
 //                    gnsViewModel.reqGNS1010(new GNS_1010.Request(APPIAInfo.GM_CARLST_04.getId(), vehicleVO.getVin(), vehicleVO.getMdlNm()));
 
                         // 고장 코드 데이터 조회
-                        developersViewModel.reqDtc(new Dtc.Request(carId));
+//                        developersViewModel.reqDtc(new Dtc.Request(carId));
                     }
                     break;
                 }

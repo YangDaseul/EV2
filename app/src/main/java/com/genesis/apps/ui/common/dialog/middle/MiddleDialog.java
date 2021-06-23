@@ -19,6 +19,7 @@ import com.genesis.apps.comm.util.PackageUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.databinding.DialogCarwashApplyInfoBinding;
 import com.genesis.apps.databinding.DialogInsightExpnDeleteBinding;
+import com.genesis.apps.databinding.DialogInstallGmailBinding;
 import com.genesis.apps.databinding.DialogMiddleTwoButtonBinding;
 import com.genesis.apps.databinding.DialogOilReconnectInfoBinding;
 import com.genesis.apps.databinding.DialogServiceCantReserveInfoBinding;
@@ -183,8 +184,31 @@ public class MiddleDialog {
     }
 
 
+    /**
+     * @param activity
+     * @param ok
+     * @param cancel
+     */
+    public static void dialogInstallGmail(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogInstallGmailBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_install_gmail, null, false);
+                    dialog.setContentView(binding.getRoot());
 
-
+                    binding.btnCancel.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (cancel != null) cancel.run();
+                    });
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) ok.run();
+                    });
+                }).show()
+        );
+    }
 
 
     //MY 차고 차량 옵션
