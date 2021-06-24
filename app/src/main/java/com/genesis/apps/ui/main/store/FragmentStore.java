@@ -261,107 +261,142 @@ public class FragmentStore extends SubFragment<FragmentStoreBinding> {
     public boolean parseURL(String url) {
         Log.d("JJJJ", "url : " + url);
         Uri uri = Uri.parse(url);
-        if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
-                || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")){
-            getActivity().finish();
-            return true;
-        } else if(url.startsWith("genesisapp://exeApp") || url.startsWith("genesisapps://exeApp")){
-            String packgeName;
-            try{
-                packgeName = uri.getQueryParameter("schm");
-                if(!TextUtils.isEmpty(packgeName)){
-                    PackageUtil.runApp(getActivity(), packgeName);
-                }
-            }catch (Exception e){
+        try {
 
-            }
-            return true;
-        } else if(url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")){
-            if(url.contains("all=y")){
+            if (url.equalsIgnoreCase("https://www.genesis.com/kr/ko")
+                    || url.equalsIgnoreCase("https://www.genesis.com/kr/ko/genesis-membership.html")) {
                 getActivity().finish();
-            }else{
-                if(clearWindowOpens3()) {
-                    return true;
-                }else {
-                    fragment.getWebView().clearHistory();
-                    return back(fragment.getUrl());
+                return true;
+            } else if (url.startsWith("genesisapp://exeApp") || url.startsWith("genesisapps://exeApp")) {
+                String packgeName;
+                try {
+                    packgeName = uri.getQueryParameter("schm");
+                    if (!TextUtils.isEmpty(packgeName)) {
+                        PackageUtil.runApp(getActivity(), packgeName);
+                    }
+                } catch (Exception e) {
+
                 }
-            }
-            return true;
-        } else if (url.startsWith("genesisapp://openView") || url.startsWith("genesisapps://openView")) {
-            ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), StoreWebActivity.class)
-                    .putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url"))
-                    .putExtra(KeyNames.KEY_NAME_CUST_INFO, mCustInfo), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-            return true;
-        } else if (url.startsWith("genesisapp://open") || url.startsWith("genesisapps://open")) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
+                return true;
+            } else if (url.startsWith("genesisapp://close") || url.startsWith("genesisapps://close")) {
+                if (url.contains("all=y")) {
+                    getActivity().finish();
+                } else {
+                    if (clearWindowOpens3()) {
+                        return true;
+                    } else {
+                        fragment.getWebView().clearHistory();
+                        return back(fragment.getUrl());
+                    }
+                }
+                return true;
+            } else if (url.startsWith("genesisapp://openView") || url.startsWith("genesisapps://openView")) {
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), StoreWebActivity.class)
+                        .putExtra(KeyNames.KEY_NAME_URL, uri.getQueryParameter("url"))
+                        .putExtra(KeyNames.KEY_NAME_CUST_INFO, mCustInfo), 0, VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                return true;
+            } else if (url.startsWith("genesisapp://open") || url.startsWith("genesisapps://open")) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
 //            intent.setData(QueryString.encode(uri.getQueryParameter("url")));
-            intent.setData(Uri.parse(uri.getQueryParameter("url")));
-            startActivity(intent); //TODO 테스트 필요 0002
-            return true;
-        } else if (url.startsWith("genesisapp://newView") || url.startsWith("genesisapps://newView")) {
-            fragment.createChildWebView(uri.getQueryParameter("url"));
-            return true;
-        } else if (url.startsWith("genesisapp://sendAction") || url.startsWith("genesisapps://sendAction")) {
+                intent.setData(Uri.parse(uri.getQueryParameter("url")));
+                startActivity(intent); //TODO 테스트 필요 0002
+                return true;
+            } else if (url.startsWith("genesisapp://newView") || url.startsWith("genesisapps://newView")) {
+                fragment.createChildWebView(uri.getQueryParameter("url"));
+                return true;
+            } else if (url.startsWith("genesisapp://sendAction") || url.startsWith("genesisapps://sendAction")) {
 //            fragment.loadUrl(QueryString.encodeString(uri.getQueryParameter("fn")));
 //            fragment.loadUrl("javascript:"+QueryString.encodeString(uri.getQueryParameter("fn")));
-            fragment.loadUrl("javascript:"+uri.getQueryParameter("fn"));
-            return true;
-        } else if (url.startsWith("genesisapp://backAction") || url.startsWith("genesisapps://backAction")){
-            this.fn = uri.getQueryParameter("fn");
-            return true;
-        } else if (url.startsWith("genesisapp://menu?id=")||url.startsWith("genesisapps://menu?id=")){
-            ((MainActivity) getActivity()).moveToNativePage(url, false);
-            return true;
-        } else if(url.startsWith("genesisapp://getSsoInfo") || url.startsWith("genesisapps://getSsoInfo")) {
-            fragment.loadUrl("javascript:setSsoInfo('" + mCustInfo + "');");
-            return true;
-        } else if(!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
-            Intent intent = null;
-            try {
-                intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
-            } catch (URISyntaxException use) {
+                fragment.loadUrl("javascript:" + uri.getQueryParameter("fn"));
+                return true;
+            } else if (url.startsWith("genesisapp://backAction") || url.startsWith("genesisapps://backAction")) {
+                this.fn = uri.getQueryParameter("fn");
+                return true;
+            } else if (url.startsWith("genesisapp://menu?id=") || url.startsWith("genesisapps://menu?id=")) {
+                ((MainActivity) getActivity()).moveToNativePage(url, false);
+                return true;
+            } else if (url.startsWith("genesisapp://getSsoInfo") || url.startsWith("genesisapps://getSsoInfo")) {
+                fragment.loadUrl("javascript:setSsoInfo('" + mCustInfo + "');");
+                return true;
+            } else if (!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript")) {
+                Intent intent = null;
+                try {
+                    intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                } catch (URISyntaxException use) {
 
-            }
+                }
 
-            uri = Uri.parse(intent.getDataString());
-            intent = new Intent(Intent.ACTION_VIEW, uri);
-            try {
-                startActivity(intent);
-            } catch (ActivityNotFoundException anfe) {
-                if(url.startsWith("ispmobile://")) {
-                    try {
-                        getActivity().getPackageManager().getPackageInfo("kvp.jjy.MispAndroid320", 0);
-                    } catch(PackageManager.NameNotFoundException nnfe) {
-                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://mobile.vpay.co.kr/jsp/MISP/andown.jsp"));
-                        startActivity(intent);
-                        return true;
-                    }
-                } else if(url.contains("kb-acp")) {
-                    try {
-                        Intent exceptIntent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
-                        exceptIntent = new Intent(Intent.ACTION_VIEW);
-                        exceptIntent.setData(Uri.parse("market://details?id=com.kbcard.kbkookmincard"));
+                uri = Uri.parse(intent.getDataString());
+                intent = new Intent(Intent.ACTION_VIEW, uri);
+                try {
+                    startActivity(intent);
+                } catch (ActivityNotFoundException anfe) {
+                    if (url.startsWith("ispmobile://")) {
+                        try {
+                            getActivity().getPackageManager().getPackageInfo("kvp.jjy.MispAndroid320", 0);
+                        } catch (PackageManager.NameNotFoundException nnfe) {
+                            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://mobile.vpay.co.kr/jsp/MISP/andown.jsp"));
+                            startActivity(intent);
+                            return true;
+                        }
+                    } else if (url.contains("kb-acp")) {
+                        try {
+                            Intent exceptIntent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                            exceptIntent = new Intent(Intent.ACTION_VIEW);
+                            exceptIntent.setData(Uri.parse("market://details?id=com.kbcard.kbkookmincard"));
 
-                        startActivity(exceptIntent);
-                    } catch(URISyntaxException use1) {
-                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://mobile.vpay.co.kr/jsp/MISP/andown.jsp"));
-                        startActivity(intent);
-                        return true;
-                    }
-                } else {
-                    try {
-                        Intent exceptIntent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
-                        String packageNm = exceptIntent.getPackage();
-                        exceptIntent = new Intent(Intent.ACTION_VIEW);
-                        exceptIntent.setData(Uri.parse("market://search?q=" + packageNm));
+                            startActivity(exceptIntent);
+                        } catch (URISyntaxException use1) {
+                            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://mobile.vpay.co.kr/jsp/MISP/andown.jsp"));
+                            startActivity(intent);
+                            return true;
+                        }
+                    } else {
+                        try {
+                            Intent exceptIntent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                            String packageNm = exceptIntent.getPackage();
+                            exceptIntent = new Intent(Intent.ACTION_VIEW);
+                            exceptIntent.setData(Uri.parse("market://search?q=" + packageNm));
 
-                        startActivity(exceptIntent);
-                    } catch (URISyntaxException use1) {
+                            startActivity(exceptIntent);
+                        } catch (URISyntaxException use1) {
+                        }
                     }
                 }
+            } else if (url != null && (url.startsWith("intent:")
+                    || url.contains("market://")
+                    || url.contains("vguard")
+                    || url.contains("droidxantivirus")
+                    || url.contains("v3mobile")
+                    || url.contains(".apk")
+                    || url.contains("mvaccine")
+                    || url.contains("smartwall://")
+                    || url.contains("http://m.ahnlab.com/kr/site/download"))) {
+                Intent intent = null;
+
+                try {
+                    intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                } catch (URISyntaxException ex) {
+                    Log.e(TAG, "[error] Bad request uri format : [" + url + "] =" + ex.getMessage());
+                    return false;
+                }
+
+                if (getActivity().getPackageManager().resolveActivity(intent, 0) == null) {
+                    String pkgName = intent.getPackage();
+                    if (pkgName != null) {
+                        Uri uriMarket = Uri.parse("market://search?q=pname:" + pkgName);
+                        intent = new Intent(Intent.ACTION_VIEW, uriMarket);
+                        startActivity(intent);
+                    }
+                } else {
+                    Uri uriDeep = Uri.parse(intent.getDataString());
+                    intent = new Intent(Intent.ACTION_VIEW, uriDeep);
+                    startActivity(intent);
+                }
+            } else {
+                fragment.loadUrl(url);
             }
-        } else {
+        }catch (Exception e){
             return false;
         }
 
