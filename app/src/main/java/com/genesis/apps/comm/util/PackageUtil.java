@@ -55,7 +55,7 @@ public class PackageUtil {
             }
         }
     }
-    private static final String EMAIL_GENESIS = "genesis@gmail.com";
+    private static final String EMAIL_GENESIS = "mygenesis.app@gmail.com";
     public static final String PACKAGE_GMAIL="com.google.android.gm";
     public static void runGMail(Context context, String msg, String title){
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
