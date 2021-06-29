@@ -8,10 +8,10 @@ public interface StoreInfo {
 
 
 //    String[] STORE_LIST_INFO = {"https://agenesisproduct.auton.kr/ko/main", "https://agenesisproduct.auton.kr/ko/main"};
-    String[] STORE_LIST_INFO = {"https://mygenesis-commerce.appyvirus.com/home/", "https://genesis-commerce-app.eeppii.com/home/"};
-    String[] STORE_SEARCH_INFO = {"https://mygenesis-commerce.appyvirus.com/search/", "https://genesis-commerce-app.eeppii.com/search/"};
-    String[] STORE_CART_INFO = {"https://mygenesis-commerce.appyvirus.com/cart/", "https://genesis-commerce-app.eeppii.com/cart/"};
-    String[] STORE_PURCHASE_INFO = {"https://mygenesis-commerce.appyvirus.com/mypage/", "https://genesis-commerce-app.eeppii.com/mypage/"};
+    String[] STORE_LIST_INFO = {"https://mygenesis-commerce.appyvirus.com/home/", "https://genesis-commerce-mygenesis.eeppii.com/home/"};
+    String[] STORE_SEARCH_INFO = {"https://mygenesis-commerce.appyvirus.com/search/", "https://genesis-commerce-mygenesis.eeppii.com/search/"};
+    String[] STORE_CART_INFO = {"https://mygenesis-commerce.appyvirus.com/cart/", "https://genesis-commerce-mygenesis.eeppii.com/cart/"};
+    String[] STORE_PURCHASE_INFO = {"https://mygenesis-commerce.appyvirus.com/mypage/", "https://genesis-commerce-mygenesis.eeppii.com/mypage/"};
     String STORE_LIST_URL = STORE_LIST_INFO[GAInfo.SERVER_TYPE];
     String STORE_SEARCH_URL = STORE_SEARCH_INFO[GAInfo.SERVER_TYPE];
     String STORE_CART_URL = STORE_CART_INFO[GAInfo.SERVER_TYPE];
