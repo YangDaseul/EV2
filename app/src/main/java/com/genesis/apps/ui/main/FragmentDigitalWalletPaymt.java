@@ -91,6 +91,7 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
 
     @Override
     public boolean onBackPressed() {
+        finishNfcPaymt();
         return false;
     }
 
@@ -112,7 +113,7 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
         if(vibrator != null )
             vibrator.cancel();
 
-        unRegisterBroadcastReceiver();
+        unsetCardInfo();
     }
 
     @Override
@@ -303,11 +304,7 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        //결제가 끝나면 기본서비스 해제
-                        CardService.unsetBasicPayApp(getActivity());
 
-                        // 브로드캐스트 리시버 해제
-                        unRegisterBroadcastReceiver();
                         //결제 화면 종료
                         finishNfcPaymt();
                     }
@@ -315,6 +312,21 @@ public class FragmentDigitalWalletPaymt extends SubFragment<FragmentDigitalWalle
             }
         }
     };
+
+    /**
+     * 결제 서비스 해제
+     */
+    private void unsetCardInfo() {
+        try {
+            //결제가 끝나면 기본서비스 해제
+            CardService.unsetBasicPayApp(getActivity());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 브로드캐스트 리시버 해제
+        unRegisterBroadcastReceiver();
+    }
 
     /**
      * 카드 번호를 NFC로 전송하는 함수.

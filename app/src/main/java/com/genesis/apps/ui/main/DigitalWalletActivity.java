@@ -7,6 +7,7 @@ import android.view.View;
 import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -266,18 +267,21 @@ public class DigitalWalletActivity extends SubActivity<ActivityDigitalWalletBind
     }
 
     @Override
-    public void onBackButton(){
+    public void onBackButton() {
         exit();
     }
 
     private void exit() {
         if (ui.vpContents != null && viewpagerAdapter != null) {
-            if (ui.vpContents.getCurrentItem() != 0) {
-                moveViewpager(0);
-                return;
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (ui.vpContents.getCurrentItem() != 0 && fragment instanceof FragmentDigitalWalletPaymt) {
+                    FragmentDigitalWalletPaymt fragmentPaymt = (FragmentDigitalWalletPaymt) fragment;
+                    fragmentPaymt.onBackPressed();
+                    return;
+                }
             }
-        }
 
-        finish();
+            finish();
+        }
     }
 }
