@@ -58,7 +58,7 @@ public class TutorialActivity extends SubActivity<ActivityTutorialBinding> {
             case VariableType.TUTORIAL_TYPE_DIGITAL_WALLET:
                 imageList.add(new ImageVO("", R.drawable.tutorial_img_03, 0,0, "", "",""));
                 imageList.add(new ImageVO("", R.drawable.tutorial_img_04, 0, 0,"", "",""));
-                imageList.add(new ImageVO("", R.drawable.tutorial_img_05, R.drawable.tutorial_img_06,0,"https://www.youtube.com/watch?v=wT9oBD7tFgg", "https://www.youtube.com/watch?v=I771Tpp0FuA",""));
+                imageList.add(new ImageVO("", R.drawable.tutorial_img_05, R.drawable.tutorial_img_06,0,"https://youtu.be/LgxY5TKVOfA", "https://youtu.be/RiPDb29bRQk",""));
                 break;
             case VariableType.TUTORIAL_TYPE_CHARGE:
                 imageList.add(new ImageVO("", R.drawable.tutorial_img_07, 0,0,"", "",""));
@@ -67,7 +67,7 @@ public class TutorialActivity extends SubActivity<ActivityTutorialBinding> {
                 break;
             case VariableType.TUTORIAL_TYPE_HOME:
             default:
-                imageList.add(new ImageVO("", R.drawable.tutorial_img_10, R.drawable.tutorial_img_05, R.drawable.tutorial_img_06,"", "https://www.youtube.com/watch?v=wT9oBD7tFgg", "https://www.youtube.com/watch?v=I771Tpp0FuA"));
+                imageList.add(new ImageVO("", R.drawable.tutorial_img_10, R.drawable.tutorial_img_05, R.drawable.tutorial_img_06,"", "https://youtu.be/LgxY5TKVOfA", "https://youtu.be/RiPDb29bRQk"));
                 imageList.add(new ImageVO("", R.drawable.tutorial_img_01, 0,0, "", "",""));
                 imageList.add(new ImageVO("", R.drawable.tutorial_img_02, 0,0, "", "",""));
                 break;
