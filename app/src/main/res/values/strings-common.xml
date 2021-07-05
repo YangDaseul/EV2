@@ -2,6 +2,10 @@
     <string name="comm_word_1">확인</string>
     <string name="comm_word_2">취소</string>
     <string name="comm_word_3">알림</string>
+
+    <string name="comm_word_4">알림</string>
+
+
     <string name="comm_msg_1">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.</string>
     <string name="comm_next">다음</string>
     <string name="comm_pay">결제</string>

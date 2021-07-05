@@ -33,6 +33,7 @@ import androidx.fragment.app.Fragment;
 
 import com.genesis.apps.comm.model.constants.RequestCodes;
 import com.genesis.apps.ui.common.activity.SubActivity;
+import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -741,7 +742,18 @@ public abstract class WebViewFragment extends Fragment {
 
 		@Override
 		public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-			if(handler != null) handler.proceed();
+			try {
+				MiddleDialog.dialogSSLError(getActivity(),
+						() -> {
+							if (handler != null) handler.proceed();
+						}, () -> {
+							if (handler != null) handler.cancel();
+						});
+			}catch (Exception ignore){
+				//do nothing.
+			}
+
+//			if(handler != null) handler.proceed();
 			//super.onReceivedSslError(view, handler, error);
 		}
 	}

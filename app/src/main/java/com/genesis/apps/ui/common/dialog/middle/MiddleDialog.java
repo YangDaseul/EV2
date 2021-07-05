@@ -564,6 +564,23 @@ public class MiddleDialog {
         );
     }
 
+
+    public static void dialogSSLError(@NonNull Activity activity, final Runnable ok, final Runnable cancel) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                getTwoButtonDialog(activity,
+                        ok,
+                        cancel,
+                        R.string.comm_word_3,
+                        R.string.dialog_msg_4,
+                        R.string.dialog_common_12,
+                        R.string.dialog_common_11
+                ).show()
+        );
+    }
+
     /**
      * @biref 주유포인트 연동 불가 팝업
      *
