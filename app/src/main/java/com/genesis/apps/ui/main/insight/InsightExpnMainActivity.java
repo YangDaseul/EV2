@@ -371,6 +371,7 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
                     }
                 default:
                     setViewCreditInfo(result.data);
+                    setGraph(result.data);
                     setViewEmpty();
                     adapter.notifyDataSetChanged();
                     showProgressDialog(false);
@@ -432,7 +433,6 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
         if(adapter.getItemCount()<1){
             ui.tvEmpty.setVisibility(View.VISIBLE);
             adapter.clear();
-            setGraph(new CBK_1002.Response());
         }else{
             ui.tvEmpty.setVisibility(View.GONE);
         }
@@ -522,6 +522,9 @@ public class InsightExpnMainActivity extends SubActivity<ActivityInsightExpnMain
     }
 
     private void setGraph(CBK_1002.Response item) {
+        if(item==null)
+            item = new CBK_1002.Response();
+
         //데이터에 따른 max값 정의
         float maxValue = getMaxValue(item);
         if (maxValue == 0) {
