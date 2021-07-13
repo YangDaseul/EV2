@@ -303,11 +303,11 @@ public class MyGHomeActivity extends SubActivity<ActivityMygHomeBinding> {
                     break;
                 case SUCCESS:
                     if(result.data!=null&&VariableType.COMMON_MEANS_YES.equalsIgnoreCase(result.data.getNewCpnYn())){
-                        ui.ivBadge1.setVisibility(View.VISIBLE);
+                        ui.ivBadgeCpn.setVisibility(View.VISIBLE);
                         break;
                     }
                 default:
-                    ui.ivBadge1.setVisibility(View.GONE);
+                    ui.ivBadgeCpn.setVisibility(View.GONE);
                     break;
             }
         });
