@@ -183,6 +183,8 @@
     <string name="gm_carlst_04_33">· 기간 혹은 주행거리 중 선도래 시 종료</string>
     <string name="gm_carlst_04_34">- 보증 주행거리 : 12만Km</string>
     <string name="gm_carlst_04_35">- 보증 주행거리 : 6만Km</string>
+    <string name="gm_carlst_04_36">- 보증 주행거리 : 3년 또는 6만Km</string>
+    <string name="gm_carlst_04_37">- 유효기간 : %s 까지\n- 보증 주행거리 : 3년 또는 6만Km</string>
 
 
     <string name="gm_carlst_03_0">차량 인증</string>

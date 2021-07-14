@@ -464,8 +464,12 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 //            ui.tvTitleMobilityCare1.setVisibility(View.VISIBLE);
         }
 
-
-        if (("HI".equalsIgnoreCase(getCurrentVehicleVO().getMdlCd()) || "GI".equalsIgnoreCase(getCurrentVehicleVO().getMdlCd())) ||
+        if(getCurrentVehicleVO().isEV()){
+            if(!TextUtils.isEmpty(itemDate))
+                ui.tvInsurance.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_37), DateUtil.getDate(DateUtil.getDefaultDateFormat(itemDate, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)));
+            else
+                ui.tvInsurance.setText(R.string.gm_carlst_04_36);
+        }else if (("HI".equalsIgnoreCase(getCurrentVehicleVO().getMdlCd()) || "GI".equalsIgnoreCase(getCurrentVehicleVO().getMdlCd())) ||
                 ("EQ900".equalsIgnoreCase(getCurrentVehicleVO().getMdlNm()) || "G90".equalsIgnoreCase(getCurrentVehicleVO().getMdlNm()))) {
             if(!TextUtils.isEmpty(itemDate))
                 ui.tvInsurance.setText(String.format(Locale.getDefault(), getString(R.string.gm_carlst_04_29), DateUtil.getDate(DateUtil.getDefaultDateFormat(itemDate, DateUtil.DATE_FORMAT_yyyyMMdd), DateUtil.DATE_FORMAT_yyyy_mm_dd_dot)));
