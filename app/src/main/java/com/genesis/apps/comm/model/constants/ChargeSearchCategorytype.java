@@ -19,7 +19,7 @@ public enum ChargeSearchCategorytype {
 
     CREDIT_CARD(R.string.sm_evss04_06, "CRT"),
     S_TRAFFIC_CRADIT_PAY(R.string.sm_evss01_26, "STP"),
-    CAR_PAY(R.string.sm_evss01_27, "GCP");
+    CAR_PAY(R.string.sm_evss01_27, "HKC");
 
     @StringRes
     private int titleResId;
