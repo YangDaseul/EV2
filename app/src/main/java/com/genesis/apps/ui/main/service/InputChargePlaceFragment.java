@@ -235,7 +235,7 @@ public class InputChargePlaceFragment extends SubFragment<FragmentInputChargePla
             adapter.setRows(getArguments().getParcelableArrayList(KeyNames.KEY_NAME_FILTER_INFO));
         } else {
             adapter.setRows(new ArrayList(Arrays.asList(
-                    new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null),
+//                    new ChargeSearchCategoryVO(R.string.sm_evss01_15, ChargeSearchCategoryVO.COMPONENT_TYPE.ONLY_ONE, null),
                     new ChargeSearchCategoryVO(R.string.sm_evss01_16, ChargeSearchCategoryVO.COMPONENT_TYPE.RADIO, Arrays.asList(ChargeSearchCategorytype.ALL,
 //                            ChargeSearchCategorytype.GENESIS, // 9월 까지 충전소 종류 "제네시스 충전소"는 미노출.
                             ChargeSearchCategorytype.E_PIT, ChargeSearchCategorytype.HI_CHARGER)),
