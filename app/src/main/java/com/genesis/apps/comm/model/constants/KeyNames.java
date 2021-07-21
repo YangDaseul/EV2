@@ -128,4 +128,6 @@ public interface KeyNames {
     String KEY_NAME_CHARGE_TAB_PAY_SERVICE_POPUP = "noMoreCheckPayDialog";
     String KEY_NAME_CHB_SELECTED_OPTION = "selectedOption";
     String KEY_NAME_TUTORIAL_TYPE="tutorialType";
+
+    String KEY_NAME_SIMILAR_CAR_CONTRACT_INFO_POPUP = "noMoreCheckContractInfoDialog";
 }

@@ -27,6 +27,7 @@ import com.genesis.apps.databinding.DialogServiceRemoteInfoBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteNotTargetBinding;
 import com.genesis.apps.databinding.DialogServiceRemoteNotTimeBinding;
 import com.genesis.apps.databinding.DialogServiceSimplePayInfoBinding;
+import com.genesis.apps.databinding.DialogSimilarCarContractInfoBinding;
 import com.genesis.apps.databinding.DialogSimilarInfoBinding;
 import com.genesis.apps.databinding.DialogUpdateBinding;
 import com.genesis.apps.databinding.DialogUsedCarInfoBinding;
@@ -373,6 +374,38 @@ public class MiddleDialog {
                             cancel.onSingleClick(v);
                         }
                     });
+                    binding.btnOk.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        if (ok != null) {
+                            v.setTag(R.id.item, binding.cb.isChecked());
+                            ok.onSingleClick(v);
+                        }
+                    });
+                }).show()
+        );
+    }
+
+    /**
+     * @param activity
+     * @param ok
+     * @brief 계약 정보 안내 팝업
+     */
+    public static void dialogSimilarCarContractInfo(@NonNull Activity activity, final OnSingleClickListener ok) {
+        if (activity.isFinishing()) {
+            return;
+        }
+        activity.runOnUiThread(() ->
+                new CustomDialog(activity, dialog -> {
+                    DialogSimilarCarContractInfoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.dialog_similar_car_contract_info, null, false);
+                    dialog.setContentView(binding.getRoot());
+
+//                    binding.btnCancel.setOnClickListener(v -> {
+//                        dialog.dismiss();
+//                        if (cancel != null) {
+//                            v.setTag(R.id.item, binding.cb.isChecked());
+//                            cancel.onSingleClick(v);
+//                        }
+//                    });
                     binding.btnOk.setOnClickListener(v -> {
                         dialog.dismiss();
                         if (ok != null) {

@@ -26,6 +26,7 @@ import com.genesis.apps.comm.util.DateUtil;
 import com.genesis.apps.comm.util.SnackBarUtil;
 import com.genesis.apps.comm.util.StringUtil;
 import com.genesis.apps.comm.viewmodel.GNSViewModel;
+import com.genesis.apps.comm.viewmodel.LGNViewModel;
 import com.genesis.apps.comm.viewmodel.MYPViewModel;
 import com.genesis.apps.databinding.ActivityMyCarNewBinding;
 import com.genesis.apps.room.ResultCallback;
@@ -34,6 +35,7 @@ import com.genesis.apps.ui.common.activity.SubActivity;
 import com.genesis.apps.ui.common.dialog.bottom.BottomListDialog;
 import com.genesis.apps.ui.common.dialog.bottom.DialogCarRgstNo;
 import com.genesis.apps.ui.common.dialog.middle.MiddleDialog;
+import com.genesis.apps.ui.common.view.listener.OnSingleClickListener;
 import com.genesis.apps.ui.main.home.view.CarHorizontalAdapter;
 import com.genesis.apps.ui.myg.MyGPrivilegeStateActivity;
 
@@ -50,6 +52,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
     private MYPViewModel mypViewModel;
     private GNSViewModel gnsViewModel;
+    private LGNViewModel lgnViewModel;
     private CarHorizontalAdapter adapter;
     private String tmpCarRgstNo = "";
 
@@ -80,6 +83,7 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
         ui.setActivity(this);
         gnsViewModel = new ViewModelProvider(this).get(GNSViewModel.class);
         mypViewModel = new ViewModelProvider(this).get(MYPViewModel.class);
+        lgnViewModel = new ViewModelProvider(this).get(LGNViewModel.class);
     }
 
     @Override
@@ -652,11 +656,16 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
                     break;
                 case R.id.btn_contract://계약서 조회
-                    if (vehicleVO != null) {
-                        startActivitySingleTop(new Intent(this, APPIAInfo.GM02_CTR01.getActivity())
-                                        .putExtra(KeyNames.KEY_NAME_CTRCT_NO, vehicleVO.getCtrctNo())
-                                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+                    if(lgnViewModel.checkContractInfoPopUp()){
+                        MiddleDialog.dialogSimilarCarContractInfo(this, new OnSingleClickListener() {
+                            @Override
+                            public void onSingleClick(View v) {
+                                lgnViewModel.setContractInfo((Boolean)v.getTag(R.id.item));
+                                moveToContractInfo(vehicleVO);
+                            }
+                        });
+                    }else{
+                        moveToContractInfo(vehicleVO);
                     }
                     break;
                 case R.id.btn_similar://유사 재고 조회
@@ -766,6 +775,15 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
             }
         } catch (Exception e) {
 
+        }
+    }
+
+    private void moveToContractInfo(VehicleVO vehicleVO) {
+        if (vehicleVO != null) {
+            startActivitySingleTop(new Intent(this, APPIAInfo.GM02_CTR01.getActivity())
+                            .putExtra(KeyNames.KEY_NAME_CTRCT_NO, vehicleVO.getCtrctNo())
+                    , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                    , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
         }
     }
 

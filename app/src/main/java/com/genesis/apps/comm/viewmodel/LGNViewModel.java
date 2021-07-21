@@ -48,6 +48,7 @@ import java.util.concurrent.Future;
 
 import lombok.Data;
 
+import static com.genesis.apps.comm.model.constants.VariableType.COMMON_MEANS_YES;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_0000;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_CV;
 import static com.genesis.apps.comm.model.constants.VariableType.MAIN_VEHICLE_TYPE_NV;
@@ -383,4 +384,15 @@ class LGNViewModel extends ViewModel {
 
         return true;
     }
+
+    public boolean checkContractInfoPopUp() {
+        return !VariableType.COMMON_MEANS_YES.equalsIgnoreCase(getDbGlobalDataRepository().select(KeyNames.KEY_NAME_SIMILAR_CAR_CONTRACT_INFO_POPUP));
+    }
+
+    public void setContractInfo(Boolean isCheck){
+        if(isCheck){
+            updateGlobalDataToDB(KeyNames.KEY_NAME_SIMILAR_CAR_CONTRACT_INFO_POPUP, COMMON_MEANS_YES);
+        }
+    }
+
 }

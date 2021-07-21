@@ -12,13 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.airbnb.paris.Paris;
 import com.bumptech.glide.Glide;
 import com.genesis.apps.R;
@@ -77,6 +70,12 @@ import java.util.TimerTask;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static android.app.Activity.RESULT_OK;
@@ -1109,21 +1108,17 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                         .putExtra(KeyNames.KEY_NAME_MAP_SEARCH_TITLE_ID, R.string.gm03_3), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
             case GM02_CTR01://계약서 조회
-
-                VehicleVO vehicleVO = null;
-                try {
-                    vehicleVO = lgnViewModel.getMainVehicleFromDB();
-                } catch (Exception e) {
-
-                } finally {
-                    if (vehicleVO != null) {
-                        ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM02_CTR01.getActivity())
-                                        .putExtra(KeyNames.KEY_NAME_CTRCT_NO, vehicleVO.getCtrctNo())
-                                , RequestCodes.REQ_CODE_ACTIVITY.getCode()
-                                , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
-                    }
+                if(lgnViewModel.checkContractInfoPopUp()){
+                    MiddleDialog.dialogSimilarCarContractInfo(getActivity(), new OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View v) {
+                            lgnViewModel.setContractInfo((Boolean)v.getTag(R.id.item));
+                            moveToContractInfo();
+                        }
+                    });
+                }else{
+                    moveToContractInfo();
                 }
-
                 break;
             case GM02_INV01://유사 재고 조회
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM02_INV01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
@@ -1137,6 +1132,22 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
             case GM_CARLST01://MY 차고
                 ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), GM_CARLST01.getActivity()), RequestCodes.REQ_CODE_ACTIVITY.getCode(), VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
                 break;
+        }
+    }
+
+    private void moveToContractInfo(){
+        VehicleVO vehicleVO = null;
+        try {
+            vehicleVO = lgnViewModel.getMainVehicleFromDB();
+        } catch (Exception e) {
+
+        } finally {
+            if (vehicleVO != null) {
+                ((MainActivity) getActivity()).startActivitySingleTop(new Intent(getActivity(), APPIAInfo.GM02_CTR01.getActivity())
+                                .putExtra(KeyNames.KEY_NAME_CTRCT_NO, vehicleVO.getCtrctNo())
+                        , RequestCodes.REQ_CODE_ACTIVITY.getCode()
+                        , VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE);
+            }
         }
     }
 
