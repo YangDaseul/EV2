@@ -656,15 +656,14 @@ public class MyCarActivity extends SubActivity<ActivityMyCarNewBinding> {
 
                     break;
                 case R.id.btn_contract://계약서 조회
-                    if(lgnViewModel.checkContractInfoPopUp()){
-                        MiddleDialog.dialogSimilarCarContractInfo(this, new OnSingleClickListener() {
-                            @Override
-                            public void onSingleClick(View v) {
-                                lgnViewModel.setContractInfo((Boolean)v.getTag(R.id.item));
-                                moveToContractInfo(vehicleVO);
-                            }
-                        });
-                    }else{
+                    if (lgnViewModel.checkContractInfoPopUp()) {
+                        MiddleDialog.dialogSimilarCarContractInfo(this,
+                                () -> moveToContractInfo(vehicleVO),
+                                () -> {
+                                    lgnViewModel.setContractInfo(true);
+                                    moveToContractInfo(vehicleVO);
+                                });
+                    } else {
                         moveToContractInfo(vehicleVO);
                     }
                     break;

@@ -1109,12 +1109,11 @@ public class FragmentHome1 extends SubFragment<FragmentHome1Binding> {
                 break;
             case GM02_CTR01://계약서 조회
                 if(lgnViewModel.checkContractInfoPopUp()){
-                    MiddleDialog.dialogSimilarCarContractInfo(getActivity(), new OnSingleClickListener() {
-                        @Override
-                        public void onSingleClick(View v) {
-                            lgnViewModel.setContractInfo((Boolean)v.getTag(R.id.item));
-                            moveToContractInfo();
-                        }
+                    MiddleDialog.dialogSimilarCarContractInfo(getActivity(), () -> {
+                        moveToContractInfo();
+                    }, () -> {
+                        lgnViewModel.setContractInfo(true);
+                        moveToContractInfo();
                     });
                 }else{
                     moveToContractInfo();
