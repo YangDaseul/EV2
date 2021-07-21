@@ -36,9 +36,9 @@ public class EPT_1001 extends BaseData {
      * SLOW 완속
      * ex) ["SUPER", "HIGH", "SLOW"]
      * @see #payType 결제방식
-     * HKC : 제네시스카페이
+     * GCP : 제네시스카페이
      * STP : S-트래픽 포인트
-     * ex) ["HKC", "STP" ]
+     * ex) ["GCP", "STP" ]
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data

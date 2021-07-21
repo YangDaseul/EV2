@@ -30,10 +30,10 @@ import lombok.EqualsAndHashCode;
  * @see #reservYn 예약가능여부
  * Y:가능 N:불가
  * @see #payType 결제 방식
- * HKC : 제네시스카페이
+ * GCP : 제네시스카페이
  * STP : S-트래픽 포인트 ==> 디폴트
  * CRT : 신용카드  ==> 디폴트
- * ex) ["HKC", "STP", "CRT" ]
+ * ex) ["GCP", "STP", "CRT" ]
  * 결제방식 : 에스트래픽은  신용카드와 충전크레딧은 기본적 가능
  * 카페이는 가능여부 확인 필요
  * @see #chgrUpdDtm 충전기상태갱신시간

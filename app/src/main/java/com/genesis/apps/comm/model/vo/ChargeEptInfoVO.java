@@ -45,10 +45,10 @@ import lombok.EqualsAndHashCode;
  * @see #genYn 제네시스전용충전소여부
  * Y: 제네시스전용충전소 N:제네시스전용충전소아님
  * @see #payType 결제방식
- * HKC : 제네시스카페이
+ * GCP : 제네시스카페이
  * STP : S-트래픽 포인트
  * CRT : 신용카드  ==> 디폴트
- * ex) ["HKC", "STP", "CRT" ]
+ * ex) ["GCP", "STP", "CRT" ]
  * 에스트래픽 :  신용카드, 충전크레딧은 디폴드
  * 에스트래픽 외 : 신용카드 디폴트
  * 제네시스카페이는 옵션
