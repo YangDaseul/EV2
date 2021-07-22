@@ -325,6 +325,15 @@ public class FragmentCharge extends SubFragment<FragmentServiceChargeBinding> {
             case R.id.iv_arrow:
                 showTerm(v);
                 break;
+            // 충전소 대기표 받기
+            case R.id.btn_service_charge_waiting:
+                // TODO 대기표 상태 체크로직 추가 필요.
+                ((BaseActivity) getActivity()).startActivitySingleTop(
+                        new Intent(getActivity(), ChargeWaitingActivity.class),
+                        RequestCodes.REQ_CODE_ACTIVITY.getCode(),
+                        VariableType.ACTIVITY_TRANSITION_ANIMATION_HORIZONTAL_SLIDE
+                );
+                break;
             //충전소 검색
             case R.id.btn_service_charge_search:
                 ((BaseActivity) getActivity()).startActivitySingleTop(

@@ -30,12 +30,36 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:visibility="gone"/>
 
+            <!-- 충전소 대기표 버튼 -->
+            <TextView
+                android:id="@+id/btn_service_charge_waiting"
+                style="@style/TextBasic"
+                android:layout_width="match_parent"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/ripple_bg_000000"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/regular_genesissansheadglobal"
+                android:gravity="center_vertical"
+                android:padding="20dp"
+                android:text="@string/sm_cg_sm02_20"
+                android:textColor="@color/x_ffffff"
+                android:textSize="16dp"
+                android:onClick="@{(view)->fragment.onSingleClickListener.onSingleClick(view)}"
+                app:layout_goneMarginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vg_ev_status_container"
+                app:drawableEndCompat="@drawable/btn_arrow_open_r_w" />
+
             <!-- 충전소 검색 -->
             <TextView
                 android:id="@+id/btn_service_charge_search"
                 style="@style/TextBasic"
                 android:layout_width="match_parent"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/ripple_bg_000000"
@@ -51,7 +75,7 @@
                 app:layout_goneMarginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vg_ev_status_container"
+                app:layout_constraintTop_toBottomOf="@+id/btn_service_charge_waiting"
                 app:drawableEndCompat="@drawable/btn_arrow_open_r_w" />
 
             <!--  충전소 예약 내역 -->
