@@ -235,6 +235,9 @@ public enum APIInfo {
     GRA_DTW_1006("에스트래픽회원탈퇴 >> 삭제", "DTW-1006", HttpRequest.METHOD_POST, getEvUri()+"dtw/memberOut.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     GRA_DTW_1007("미수금결제완료 시그널", "DTW-1007", HttpRequest.METHOD_POST, getEvUri()+"dtw/recPaymCompSign.do", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
 
+    // 블루 맴버스 포인트
+    GRA_BMP_1001("블루멤버스 포인트 결제 설정/변경", "BMP-1001", HttpRequest.METHOD_POST, getEvUri() + "", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
+
     //DEVELOPERS API에서는 ifCd를 url 파라미터 형태로 사용
     DEVELOPERS_DTC("고장 코드 조회", "carId", HttpRequest.METHOD_GET, "/car/status/%s/dtc", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
     DEVELOPERS_REPLACEMENTS("소모품 교환 정보 조회", "carId", HttpRequest.METHOD_GET, "/data-service/car/care/%s/replacements", HttpRequest.CONTENT_TYPE_JSON, HttpRequest.CHARSET_UTF8),
