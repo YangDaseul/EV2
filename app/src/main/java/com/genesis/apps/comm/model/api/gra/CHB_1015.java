@@ -4,6 +4,7 @@ import com.genesis.apps.comm.model.BaseData;
 import com.genesis.apps.comm.model.api.APIInfo;
 import com.genesis.apps.comm.model.api.BaseRequest;
 import com.genesis.apps.comm.model.api.BaseResponse;
+import com.genesis.apps.comm.model.vo.BlueMembersPointInfoVO;
 import com.genesis.apps.comm.model.vo.carlife.PaymtCardVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -34,6 +35,8 @@ public class CHB_1015 extends BaseData {
      *
      * @see #cardCount      결제 수단 갯수
      * @see #cardList       간편 결제 수단 리스트
+     *
+     * @see #bmpInfo 블루 맴버스 포인트 정보
      */
     @EqualsAndHashCode(callSuper = true)
     public @Data
@@ -47,5 +50,8 @@ public class CHB_1015 extends BaseData {
         @Expose
         @SerializedName("cardList")
         private List<PaymtCardVO> cardList;
+        @Expose
+        @SerializedName("bmpInfo")
+        private BlueMembersPointInfoVO bmpInfo;
     }
 }
